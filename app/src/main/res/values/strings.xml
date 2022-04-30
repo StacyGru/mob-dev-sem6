@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CurrencyConverter</string>
+    <string name="currency_list">Список валют</string>
+    <string name="operations_history">История операций</string>
+    <string name="analytics">Аналитика</string>
+
+</resources>
