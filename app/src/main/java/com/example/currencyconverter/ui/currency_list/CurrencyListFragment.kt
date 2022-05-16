@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.currencyconverter.R
 import com.example.currencyconverter.databinding.CurrencyListBinding
+import com.example.currencyconverter.recycler_view.CurrencyAdapter
+import kotlinx.android.synthetic.main.currency_list.view.*
 
 class CurrencyListFragment : Fragment() {
 
@@ -15,6 +19,9 @@ class CurrencyListFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter: CurrencyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +38,19 @@ class CurrencyListFragment : Fragment() {
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-        return root
+
+        val viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
+        val view = inflater.inflate(R.layout.currency_list, container, false)
+        recyclerView = view.recyclerView
+        adapter = CurrencyAdapter()
+        recyclerView.adapter = adapter
+        viewModel.getCurrencyList()
+        viewModel.currencyList.observe(viewLifecycleOwner) { list ->
+            adapter.setList(list.rates)
+        }
+
+
+        return view
     }
 
     override fun onDestroyView() {

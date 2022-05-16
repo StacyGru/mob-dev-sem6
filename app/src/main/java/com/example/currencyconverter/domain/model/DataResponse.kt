@@ -1,7 +1,7 @@
-package com.example.currencyconverter.data
+package com.example.currencyconverter.domain.model
 
 // здесь описываем то, в каком формате ПОЛУЧАЕМ данные через retrofit (от веб-сервиса)
-data class CurrencyResponse(
+data class DataResponse(
     val success: Boolean,
     val timestamp: Long,
     val base: String,

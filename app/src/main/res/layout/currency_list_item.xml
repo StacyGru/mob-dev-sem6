@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:background="@color/light"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/currency_name"
+        android:text="USD"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="15dp">
+    </TextView>
+    <TextView
+        android:id="@+id/currency_rate"
+        android:text="99,99"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_gravity="center">
+    </TextView>
+    <ImageView
+        android:id="@+id/to_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_star_outline"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginHorizontal="15dp">
+    </ImageView>
+
+</FrameLayout>
