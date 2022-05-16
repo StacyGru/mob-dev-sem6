@@ -1,4 +1,4 @@
-package com.example.currencyconverter.data.repository
+package com.example.currencyconverter.data.retrofit.repository
 
 import com.example.currencyconverter.data_source.LocalDataSource
 import com.example.currencyconverter.data_source.RemoteDataSource

@@ -1,4 +1,4 @@
-package com.example.currencyconverter.data.api
+package com.example.currencyconverter.data.retrofit.api
 
 import com.example.currencyconverter.domain.model.DataResponse
 import retrofit2.http.GET

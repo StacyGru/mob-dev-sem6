@@ -9,15 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyconverter.R
 import com.example.currencyconverter.databinding.CurrencyListBinding
+import com.example.currencyconverter.domain.model.CurrencyList
 import com.example.currencyconverter.recycler_view.CurrencyAdapter
+import com.example.currencyconverter.ui.currency_exchange.CurrencyExchangeFragment
 import kotlinx.android.synthetic.main.currency_list.view.*
 
 class CurrencyListFragment : Fragment() {
 
     private var _binding: CurrencyListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     lateinit var recyclerView: RecyclerView
@@ -28,33 +27,60 @@ class CurrencyListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(CurrencyListViewModel::class.java)
+        _binding = CurrencyListBinding.inflate(layoutInflater, container, false)
 
-        _binding = CurrencyListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
+//        val viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
+//        val view = inflater.inflate(R.layout.currency_list, container, false)
+//        recyclerView = view.recyclerView
+//        adapter = CurrencyAdapter()
+//        recyclerView.adapter = adapter
+//        viewModel.getCurrencyList()
+//        viewModel.currencyList.observe(viewLifecycleOwner) { list ->
+//            adapter.setList(list.rates)
 //        }
 
-        val viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
-        val view = inflater.inflate(R.layout.currency_list, container, false)
-        recyclerView = view.recyclerView
-        adapter = CurrencyAdapter()
+        adapter = CurrencyAdapter(object: CurrencyActionListener {
+            override fun currencyExchange(currency: CurrencyList) {
+                val fragment = CurrencyExchangeFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("currency", currency)
+                fragment.arguments = bundle
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.container, fragment)
+                    .commitNow()
+            }
+        })
+
+//        return view
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
+        val viewModel = ViewModelProvider(this)[CurrencyListViewModel::class.java]
+        recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         viewModel.getCurrencyList()
         viewModel.currencyList.observe(viewLifecycleOwner) { list ->
             adapter.setList(list.rates)
         }
-
-
-        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+//    companion object {
+//        fun clickItem(currency: CurrencyList) {
+//            val bundle = Bundle()
+//            bundle.putSerializable("currency", currency)
+//        }
+//
+//    }
 }

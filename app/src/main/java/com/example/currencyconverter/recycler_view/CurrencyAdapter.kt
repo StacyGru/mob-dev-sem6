@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyconverter.R
 import com.example.currencyconverter.domain.model.CurrencyList
 import com.example.currencyconverter.domain.model.DataToUse
+import com.example.currencyconverter.ui.currency_list.CurrencyActionListener
 import kotlinx.android.synthetic.main.currency_list_item.view.*
 
 class CurrencyAdapter:RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
@@ -34,6 +35,17 @@ class CurrencyAdapter:RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>()
     fun setList(list: List<CurrencyList>){
         currencyList = list
         notifyDataSetChanged()
+    }
+
+//    override fun onViewAttachedToWindow(holder: CurrencyViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//        holder.itemView.setOnClickListener {
+//            actionListener.currencyExchange(currencyList[holder.absoluteAdapterPosition])
+//        }
+//    }
+
+    override fun onViewDetachedFromWindow(holder: CurrencyViewHolder) {
+        holder.itemView.setOnClickListener(null)
     }
 }
 

@@ -1,8 +1,8 @@
-package com.example.currencyconverter.data.api
+package com.example.currencyconverter.data.retrofit.api
 
 import com.example.currencyconverter.data_source.LocalDataSource
 import com.example.currencyconverter.data_source.RemoteDataSource
-import com.example.currencyconverter.data.repository.Repository
+import com.example.currencyconverter.data.retrofit.repository.Repository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
