@@ -11,9 +11,12 @@ import com.example.currencyconverter.domain.model.DataToUse
 import com.example.currencyconverter.ui.currency_list.CurrencyActionListener
 import kotlinx.android.synthetic.main.currency_list_item.view.*
 
-class CurrencyAdapter:RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
+class CurrencyAdapter(
+    private val actionListener: CurrencyActionListener
+) :RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
     var currencyList = emptyList<CurrencyList>()
+//    lateinit var actionListener: CurrencyActionListener
 
     class CurrencyViewHolder(view: View):RecyclerView.ViewHolder(view)
 
@@ -37,12 +40,12 @@ class CurrencyAdapter:RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>()
         notifyDataSetChanged()
     }
 
-//    override fun onViewAttachedToWindow(holder: CurrencyViewHolder) {
-//        super.onViewAttachedToWindow(holder)
-//        holder.itemView.setOnClickListener {
-//            actionListener.currencyExchange(currencyList[holder.absoluteAdapterPosition])
-//        }
-//    }
+    override fun onViewAttachedToWindow(holder: CurrencyViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener {
+            actionListener.currencyExchange(currencyList[holder.absoluteAdapterPosition])
+        }
+    }
 
     override fun onViewDetachedFromWindow(holder: CurrencyViewHolder) {
         holder.itemView.setOnClickListener(null)

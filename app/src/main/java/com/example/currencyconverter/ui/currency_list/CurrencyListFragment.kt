@@ -29,16 +29,6 @@ class CurrencyListFragment : Fragment() {
     ): View {
         _binding = CurrencyListBinding.inflate(layoutInflater, container, false)
 
-//        val viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
-//        val view = inflater.inflate(R.layout.currency_list, container, false)
-//        recyclerView = view.recyclerView
-//        adapter = CurrencyAdapter()
-//        recyclerView.adapter = adapter
-//        viewModel.getCurrencyList()
-//        viewModel.currencyList.observe(viewLifecycleOwner) { list ->
-//            adapter.setList(list.rates)
-//        }
-
         adapter = CurrencyAdapter(object: CurrencyActionListener {
             override fun currencyExchange(currency: CurrencyList) {
                 val fragment = CurrencyExchangeFragment()
@@ -46,12 +36,10 @@ class CurrencyListFragment : Fragment() {
                 bundle.putSerializable("currency", currency)
                 fragment.arguments = bundle
                 parentFragmentManager.beginTransaction()
-                    .add(R.id.container, fragment)
+                    .replace(R.id.nav_host_fragment_activity_main, fragment)
                     .commitNow()
             }
         })
-
-//        return view
 
         return binding.root
     }
@@ -76,11 +64,4 @@ class CurrencyListFragment : Fragment() {
         _binding = null
     }
 
-//    companion object {
-//        fun clickItem(currency: CurrencyList) {
-//            val bundle = Bundle()
-//            bundle.putSerializable("currency", currency)
-//        }
-//
-//    }
 }

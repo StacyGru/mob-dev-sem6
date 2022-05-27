@@ -12,7 +12,9 @@ import com.example.currencyconverter.databinding.CurrencyExchangeBinding
 import com.example.currencyconverter.databinding.CurrencyListBinding
 import com.example.currencyconverter.domain.model.CurrencyList
 import com.example.currencyconverter.recycler_view.CurrencyAdapter
+import com.example.currencyconverter.ui.currency_list.CurrencyListFragment
 import com.example.currencyconverter.ui.currency_list.CurrencyListViewModel
+import kotlinx.android.synthetic.main.currency_exchange.*
 
 class CurrencyExchangeFragment : Fragment() {
 
@@ -26,12 +28,21 @@ class CurrencyExchangeFragment : Fragment() {
     ): View? {
         _binding = CurrencyExchangeBinding.inflate(layoutInflater, container, false)
         currency = arguments?.getSerializable("currency") as CurrencyList
-        return inflater.inflate(R.layout.currency_exchange, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+
+        binding.back.setOnClickListener {
+            var fragment = CurrencyListFragment()
+            var bundle = Bundle()
+            fragment.arguments = bundle
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, fragment)
+                .commitNow()
+        }
     }
 
     private fun init() {
