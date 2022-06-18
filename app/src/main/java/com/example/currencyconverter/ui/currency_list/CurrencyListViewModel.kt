@@ -3,23 +3,60 @@ package com.example.currencyconverter.ui.currency_list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.currencyconverter.data.retrofit.api.DependencyInjection.repository
-import com.example.currencyconverter.domain.model.DataToUse
+import com.example.currencyconverter.data.retrofit.api.RetrofitInstance.repository
+import com.example.currencyconverter.data.room.repository.CurrencyRepositoryRealization
+import com.example.currencyconverter.domain.model.CurrencyList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-class CurrencyListViewModel : ViewModel() {
+class CurrencyListViewModel(private var realization: CurrencyRepositoryRealization) : ViewModel() {
 
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "Список валют"
+    val liveData = MutableLiveData<List<CurrencyList>>()
+
+    fun init() {
+        this.getRetrofitCurrencyList()
+    }
+
+//    fun insert(){
+//        getCurrencyList()
 //    }
-//    val text: LiveData<String> = _text
 
+    fun getRetrofitCurrencyList(){
+        viewModelScope.launch(Dispatchers.IO) {
+            liveData.postValue(getLocalCurrencyList())
+            repository.getCurrencies()?.let { remoteCurrencies ->
+                remoteCurrencies.rates.map { remoteCurrency ->
+                    insertCurrencyList(remoteCurrency) {}
+                }
+                liveData.postValue(getLocalCurrencyList())
+            }
+        }
+    }
 
-    val currencyList: MutableLiveData<DataToUse> = MutableLiveData()
+    private fun getLocalCurrencyList(): MutableList<CurrencyList>{
+        return runBlocking {
+            realization.getRoomCurrencyList()
+        }
+    }
 
-    fun getCurrencyList(){
-        viewModelScope.launch {
-            currencyList.value = repository.getCurrencies()
+    fun insertCurrencyList(currency: CurrencyList, onSuccess:() -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            realization.insertCurrencyList(currency) {
+                onSuccess()
+            }
+        }
+    }
+
+    private fun getCurrencyList(){
+        return liveData.postValue(getLocalCurrencyList())
+    }
+
+    fun updateListCurrency(currency: CurrencyList, onSuccess:() -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            realization.updateListCurrency(currency){
+                onSuccess()
+            }
         }
     }
 }

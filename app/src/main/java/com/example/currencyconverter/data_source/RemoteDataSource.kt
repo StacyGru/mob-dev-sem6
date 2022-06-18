@@ -7,6 +7,6 @@ import com.example.currencyconverter.domain.model.DataResponse
 class RemoteDataSource(private val currencyApi: CurrencyApi) {
 
     suspend fun getCurrencies(): DataResponse {
-        return currencyApi.getCurrencies()
+        return currencyApi.getRemoteCurrencyList()
     }
 }

@@ -2,14 +2,15 @@ package com.example.currencyconverter.data.retrofit.api
 
 import com.example.currencyconverter.data_source.LocalDataSource
 import com.example.currencyconverter.data_source.RemoteDataSource
-import com.example.currencyconverter.data.retrofit.repository.Repository
+import com.example.currencyconverter.data.retrofit.repository.RetrofitRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 // реализация retrofit и связь с репозиторием
-object DependencyInjection {
+object RetrofitInstance {
+
     private val interceptor = HttpLoggingInterceptor().also {
         it.level = HttpLoggingInterceptor.Level.BODY
     }
@@ -22,10 +23,10 @@ object DependencyInjection {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val service = retrofit.create(CurrencyApi::class.java)
+    val service = retrofit.create(CurrencyApi::class.java)
 
     private val localDataSource = LocalDataSource()
     private val remoteDataSource = RemoteDataSource(service)
 
-    val repository = Repository(localDataSource, remoteDataSource)
+    val repository = RetrofitRepository()
 }
