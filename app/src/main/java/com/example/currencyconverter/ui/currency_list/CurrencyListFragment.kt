@@ -18,6 +18,7 @@ import com.example.currencyconverter.ui.currency_exchange.CurrencyExchangeFragme
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.currency_list.view.*
 import kotlinx.android.synthetic.main.currency_list_item.view.*
+import java.util.*
 
 class CurrencyListFragment : Fragment() {
 
@@ -25,14 +26,36 @@ class CurrencyListFragment : Fragment() {
     lateinit var viewModel: CurrencyListViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: CurrencyAdapter
+    lateinit var currentCurrency: CurrencyList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModelFactory = CurrencyListViewModelFactory(RepositoryInitialization.getRepository(requireContext()))
         viewModel = ViewModelProvider(this, viewModelFactory)[CurrencyListViewModel::class.java]
-
+        var currencyType = 0
+        val bundle = Bundle()
+        val fragment = CurrencyExchangeFragment()
         viewModel.init()
         adapter = CurrencyAdapter(object: CurrencyActionListener {
+            override fun onCurrencyFavorite(currency: CurrencyList) {
+                currentCurrency = currency
+                viewModel.updateListFavoriteCurrency(currentCurrency){}
+            }
+
+            override fun currencyUp(currencyUp: CurrencyList) {
+                if (currencyType==0){
+                    viewModel.longClickExchange(currencyUp)
+                    bundle.putSerializable("currencyUp", currencyUp)
+                    currencyType = 1
+                }else {
+                    bundle.putSerializable("currency", currencyUp)
+                    fragment.arguments = bundle
+                    parentFragmentManager.beginTransaction()
+                        .add(R.id.nav_host_fragment_activity_main, fragment)
+                        .commitNow()
+                }
+            }
+
             override fun currencyExchange(currency: CurrencyList) {
                 val fragment = CurrencyExchangeFragment()
                 val bundle = Bundle()

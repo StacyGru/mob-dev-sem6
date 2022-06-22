@@ -10,8 +10,8 @@ import java.io.Serializable
 @Entity(tableName = "currencies")
 data class CurrencyList (
     @PrimaryKey @NonNull
-
     @SerializedName("name") val name: String,
     @SerializedName("value") val value: Double,
-//    var is_favorite: Boolean
+//    @ColumnInfo(defaultValue = "0")
+    val is_favorite: Boolean
 ) : Serializable

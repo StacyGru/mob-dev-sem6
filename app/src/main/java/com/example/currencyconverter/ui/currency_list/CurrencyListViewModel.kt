@@ -59,4 +59,24 @@ class CurrencyListViewModel(private var realization: CurrencyRepositoryRealizati
             }
         }
     }
+
+    fun updateListFavoriteCurrency(currency: CurrencyList, onSuccess:() -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            realization.updateListFavoriteCurrency(currency){
+                val updated = getLocalCurrencyList()
+                liveData.postValue(updated)
+                onSuccess()
+            }
+        }
+    }
+
+    fun longClickExchange(currency: CurrencyList){
+        viewModelScope.launch(Dispatchers.IO){
+            val index = getLocalCurrencyList().indexOf(currency)
+            getLocalCurrencyList().removeAt(index)
+            getLocalCurrencyList().add(0, currency)
+            val updated = getLocalCurrencyList()
+            liveData.postValue(updated)
+        }
+    }
 }

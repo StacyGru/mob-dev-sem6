@@ -18,4 +18,9 @@ class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): Local
         currencyDao.updateListCurrency(currency.name,  currency.value)
         onSuccess()
     }
+
+    override suspend fun updateListFavoriteCurrency(currency: CurrencyList, onSuccess: () -> Unit) {
+        currencyDao.updateListFavoriteCurrency(currency.name,  currency.is_favorite)
+        onSuccess()
+    }
 }

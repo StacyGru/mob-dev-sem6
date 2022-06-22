@@ -9,4 +9,6 @@ interface LocalCurrencyRepository {
     suspend fun getRoomCurrencyList(): MutableList<CurrencyList>
 
     suspend fun updateListCurrency(currency: CurrencyList, onSuccess: () -> Unit)
+
+    suspend fun updateListFavoriteCurrency(currency: CurrencyList, onSuccess: () -> Unit)
 }

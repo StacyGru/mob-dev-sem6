@@ -10,9 +10,12 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCurrencyList(currency: CurrencyList)
 
-    @Query("SELECT * FROM currencies")
+    @Query("SELECT * FROM currencies ORDER BY is_favorite DESC")
     suspend fun getRoomCurrencyList(): MutableList<CurrencyList>
 
     @Query("UPDATE currencies SET value = :value WHERE name = :name")
     suspend fun updateListCurrency(name: String, value: Double)
+
+    @Query("UPDATE currencies SET is_favorite = :is_favorite WHERE name = :name")
+    suspend fun updateListFavoriteCurrency(name: String, is_favorite: Boolean)
 }
