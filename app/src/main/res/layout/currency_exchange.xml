@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/currency_name"
+                android:id="@+id/first_currency_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USD"
@@ -46,13 +46,13 @@
                 android:layout_marginBottom="5dp"
                 />
             <EditText
+                android:id="@+id/first_currency_amount"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@color/light"
                 android:textSize="25sp"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:hint="1"
                 />
         </LinearLayout>
 
@@ -70,6 +70,7 @@
             android:orientation="vertical"
             android:layout_gravity="end">
             <TextView
+                android:id="@+id/second_currency_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RUB"
@@ -78,14 +79,13 @@
                 android:layout_marginBottom="5dp"
                 />
             <EditText
-                android:id="@+id/currency_rate"
+                android:id="@+id/second_currency_amount"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@color/light"
                 android:textSize="25sp"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:hint="99,99"
                 />
         </LinearLayout>
 

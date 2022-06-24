@@ -7,5 +7,5 @@ interface CurrencyActionListener {
 
     fun onCurrencyFavorite(currency: CurrencyList)
 
-    fun currencyUp(currency: CurrencyList)
+    fun currencyUp(currencyUp: CurrencyList)
 }

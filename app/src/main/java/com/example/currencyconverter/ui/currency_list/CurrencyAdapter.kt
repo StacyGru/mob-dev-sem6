@@ -1,17 +1,12 @@
-package com.example.currencyconverter.recycler_view
+package com.example.currencyconverter.ui.currency_list
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyconverter.R
 import com.example.currencyconverter.databinding.CurrencyListItemBinding
 import com.example.currencyconverter.domain.model.CurrencyList
-import com.example.currencyconverter.domain.model.DataToUse
-import com.example.currencyconverter.ui.currency_list.CurrencyActionListener
-import kotlinx.android.synthetic.main.currency_list_item.view.*
 import java.text.DecimalFormat
 
 class CurrencyAdapter(
@@ -59,7 +54,7 @@ class CurrencyAdapter(
 
         fun bind(item: CurrencyList) = binding.run {
             currencyName.text = item.name
-            currencyRate.text = item.value.toString()
+            currencyRate.text = DecimalFormat("#0.0000").format(item.value)
             if (item.is_favorite) {
                 toFavorite.setImageResource(R.drawable.icon_star)
             } else {

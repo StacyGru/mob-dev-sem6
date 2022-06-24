@@ -23,4 +23,16 @@ class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): Local
         currencyDao.updateListFavoriteCurrency(currency.name,  currency.is_favorite)
         onSuccess()
     }
+
+    override suspend fun getFavoriteCurrencyList(): MutableList<CurrencyList>? {
+        return currencyDao.getFavoriteCurrencyList()
+    }
+
+    override suspend fun getUSD(): CurrencyList {
+        return currencyDao.getUSD()
+    }
+
+    override suspend fun getRUB(): CurrencyList {
+        return currencyDao.getRUB()
+    }
 }

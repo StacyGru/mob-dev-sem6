@@ -11,4 +11,7 @@ interface LocalCurrencyRepository {
     suspend fun updateListCurrency(currency: CurrencyList, onSuccess: () -> Unit)
 
     suspend fun updateListFavoriteCurrency(currency: CurrencyList, onSuccess: () -> Unit)
+    suspend fun getFavoriteCurrencyList(): MutableList<CurrencyList>?
+    suspend fun getUSD(): CurrencyList
+    suspend fun getRUB(): CurrencyList
 }

@@ -18,4 +18,13 @@ interface CurrencyDao {
 
     @Query("UPDATE currencies SET is_favorite = :is_favorite WHERE name = :name")
     suspend fun updateListFavoriteCurrency(name: String, is_favorite: Boolean)
+
+    @Query("SELECT * FROM currencies WHERE is_favorite = 1")
+    suspend fun getFavoriteCurrencyList(): MutableList<CurrencyList>?
+
+    @Query("SELECT * FROM currencies WHERE name='USD'")
+    suspend fun getUSD(): CurrencyList
+
+    @Query("SELECT * FROM currencies WHERE name='RUB'")
+    suspend fun getRUB(): CurrencyList
 }

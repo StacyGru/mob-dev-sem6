@@ -13,12 +13,8 @@ import com.example.currencyconverter.R
 import com.example.currencyconverter.data.room.repository.RepositoryInitialization
 import com.example.currencyconverter.databinding.CurrencyListBinding
 import com.example.currencyconverter.domain.model.CurrencyList
-import com.example.currencyconverter.recycler_view.CurrencyAdapter
 import com.example.currencyconverter.ui.currency_exchange.CurrencyExchangeFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.currency_list.view.*
-import kotlinx.android.synthetic.main.currency_list_item.view.*
-import java.util.*
 
 class CurrencyListFragment : Fragment() {
 
@@ -43,15 +39,15 @@ class CurrencyListFragment : Fragment() {
             }
 
             override fun currencyUp(currencyUp: CurrencyList) {
-                if (currencyType==0){
+                if (currencyType==0) {
                     viewModel.longClickExchange(currencyUp)
-                    bundle.putSerializable("currencyUp", currencyUp)
+                    bundle.putSerializable("currency", currencyUp)
                     currencyType = 1
                 }else {
                     bundle.putSerializable("currency", currencyUp)
                     fragment.arguments = bundle
                     parentFragmentManager.beginTransaction()
-                        .add(R.id.nav_host_fragment_activity_main, fragment)
+                        .replace(R.id.nav_host_fragment_activity_main, fragment)
                         .commitNow()
                 }
             }
