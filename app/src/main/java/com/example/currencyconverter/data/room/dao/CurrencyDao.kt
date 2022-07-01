@@ -2,6 +2,7 @@ package com.example.currencyconverter.data.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
 
 @Dao
@@ -27,4 +28,10 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM currencies WHERE name='RUB'")
     suspend fun getRUB(): CurrencyList
+
+    @Query("SELECT * FROM exchanges")
+    suspend fun getExchangeHistory(): MutableList<CurrencyExchange>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addExchange(exchange: CurrencyExchange)
 }

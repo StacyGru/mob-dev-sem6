@@ -1,7 +1,6 @@
 package com.example.currencyconverter.domain.model
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -12,6 +11,5 @@ data class CurrencyList (
     @PrimaryKey @NonNull
     @SerializedName("name") val name: String,
     @SerializedName("value") val value: Double,
-//    @ColumnInfo(defaultValue = "0")
     val is_favorite: Boolean
 ) : Serializable

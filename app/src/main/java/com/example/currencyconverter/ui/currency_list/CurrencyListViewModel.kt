@@ -14,12 +14,12 @@ class CurrencyListViewModel(private var realization: CurrencyRepositoryRealizati
 
     val liveData = MutableLiveData<List<CurrencyList>>()
 
-    fun init() {
-        this.getRetrofitCurrencyList()
+    fun init() {    // если БД уже есть
+        this.getCurrencyList()
     }
 
-//    fun insert(){
-//        getCurrencyList()
+//    fun init() {    // если БД нет
+//        this.getRetrofitCurrencyList()
 //    }
 
     fun getRetrofitCurrencyList(){

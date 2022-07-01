@@ -1,5 +1,6 @@
 package com.example.currencyconverter.ui.currency_exchange
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,9 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.currencyconverter.R
 import com.example.currencyconverter.data.room.repository.RepositoryInitialization
 import com.example.currencyconverter.databinding.CurrencyExchangeBinding
+import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
 import com.example.currencyconverter.ui.currency_list.CurrencyListFragment
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.Double.Companion
 
 class CurrencyExchangeFragment : Fragment() {
 
@@ -23,6 +28,8 @@ class CurrencyExchangeFragment : Fragment() {
     lateinit var firstCurrency: CurrencyList
     lateinit var secondCurrency: CurrencyList
     private var secondNameIs = false
+    private var firstCurrencyAmount = 1.0000
+    private var secondCurrencyAmount = 1.0000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,8 +90,8 @@ class CurrencyExchangeFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.isNotEmpty()) {
                     if (start >= 0) {
-                        val firstCurrencyAmount = s.toString().toDouble()
-                        val secondCurrencyAmount =
+                        firstCurrencyAmount = s.toString().toDouble()
+                        secondCurrencyAmount =
                             (firstCurrency.value * firstCurrencyAmount) / secondCurrency.value
                         binding.secondCurrencyAmount.setText(
                             DecimalFormat("#0.0000").format(
@@ -97,6 +104,28 @@ class CurrencyExchangeFragment : Fragment() {
                     binding.secondCurrencyAmount.text.clear()
             }
         })
+
+//        val exchangeHistorySize = viewModel.getExchangeHistory()
+
+        binding.exchange.setOnClickListener {
+            var exchangeItem = CurrencyExchange(
+//            exchangeHistorySize.size + 1,
+                firstCurrency.name,
+                firstCurrencyAmount,
+                secondCurrency.name,
+                secondCurrencyAmount,
+                getCurrentDate()
+            )
+
+            viewModel.addExchange(exchangeItem){}
+//            val fragment = CurrencyExchangeFragment()
+//            val bundle = Bundle()
+//            fragment.arguments = bundle
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.nav_host_fragment_activity_main, fragment)
+//                .commitNow()
+        }
+
     }
 
     private fun getFavoriteCurrencyList(): Boolean{
@@ -113,5 +142,12 @@ class CurrencyExchangeFragment : Fragment() {
             }
         }
         return secondNameIs
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentDate(): String {
+        val c = Calendar.getInstance()
+        val df = SimpleDateFormat("dd-MM-yyyy")
+        return df.format(c.time)
     }
 }

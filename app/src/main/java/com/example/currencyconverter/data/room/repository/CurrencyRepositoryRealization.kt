@@ -1,6 +1,7 @@
 package com.example.currencyconverter.data.room.repository
 
 import com.example.currencyconverter.data.room.dao.CurrencyDao
+import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
 
 class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): LocalCurrencyRepository {
@@ -34,5 +35,14 @@ class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): Local
 
     override suspend fun getRUB(): CurrencyList {
         return currencyDao.getRUB()
+    }
+
+    override suspend fun getExchangeHistory(): MutableList<CurrencyExchange> {
+        return currencyDao.getExchangeHistory()
+    }
+
+    override suspend fun addExchange(exchange: CurrencyExchange, onSuccess: () -> Unit) {
+        currencyDao.addExchange(exchange)
+        onSuccess()
     }
 }
