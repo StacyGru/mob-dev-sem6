@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:background="@color/light"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/date"
+        android:text="01-01-2022"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="15dp">
+
+        <TextView
+            android:id="@+id/first_currency_amount"
+            android:text="3.0000"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:textStyle="italic">
+        </TextView>
+        <TextView
+            android:id="@+id/first_currency_name"
+            android:text="USD"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="italic|bold">
+        </TextView>
+        <TextView
+            android:text="="
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="10dp">
+        </TextView>
+        <TextView
+            android:id="@+id/second_currency_amount"
+            android:text="150.0000"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:textStyle="italic">
+        </TextView>
+        <TextView
+            android:id="@+id/second_currency_name"
+            android:text="RUB"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:textStyle="italic|bold">
+        </TextView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

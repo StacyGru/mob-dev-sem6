@@ -105,11 +105,8 @@ class CurrencyExchangeFragment : Fragment() {
             }
         })
 
-//        val exchangeHistorySize = viewModel.getExchangeHistory()
-
         binding.exchange.setOnClickListener {
             var exchangeItem = CurrencyExchange(
-//            exchangeHistorySize.size + 1,
                 firstCurrency.name,
                 firstCurrencyAmount,
                 secondCurrency.name,
@@ -118,12 +115,12 @@ class CurrencyExchangeFragment : Fragment() {
             )
 
             viewModel.addExchange(exchangeItem){}
-//            val fragment = CurrencyExchangeFragment()
-//            val bundle = Bundle()
-//            fragment.arguments = bundle
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.nav_host_fragment_activity_main, fragment)
-//                .commitNow()
+            val fragment = CurrencyListFragment()
+            val bundle = Bundle()
+            fragment.arguments = bundle
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, fragment)
+                .commitNow()
         }
 
     }

@@ -22,9 +22,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/refresh"
-        tools:itemCount="10"
         tools:listitem="@layout/currency_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

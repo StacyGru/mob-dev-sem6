@@ -7,36 +7,48 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.currencyconverter.data.room.repository.RepositoryInitialization
 import com.example.currencyconverter.databinding.OperationsHistoryBinding
+import com.example.currencyconverter.domain.model.CurrencyExchange
 
 class OperationsHistoryFragment : Fragment() {
 
-    private var _binding: OperationsHistoryBinding? = null
+    private lateinit var binding: OperationsHistoryBinding
+    private lateinit var viewModel: OperationsHistoryViewModel
+    private lateinit var adapter: OperationsHistoryAdapter
+    private lateinit var recyclerView: RecyclerView
+    var exchangeHistoryList: MutableList<CurrencyExchange> = mutableListOf()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val viewModelFactory = OperationsHistoryViewModelFactory(RepositoryInitialization.getRepository(requireContext()))
+        viewModel = ViewModelProvider(this, viewModelFactory)[OperationsHistoryViewModel::class.java]
+        adapter = OperationsHistoryAdapter(exchangeHistoryList)
+        getExchangeHistory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(OperationsHistoryViewModel::class.java)
+        binding = OperationsHistoryBinding.inflate(inflater, container, false)
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView.adapter = adapter
 
-        _binding = OperationsHistoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun getExchangeHistory() {
+        viewModel.getExchangeHistory().let { newExchangeHistory ->
+            exchangeHistoryList.clear()
+            newExchangeHistory.forEach { item ->
+                exchangeHistoryList.add(item)
+            }
+            adapter.setList(exchangeHistoryList)
+        }
     }
 }

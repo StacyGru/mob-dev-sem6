@@ -3,11 +3,19 @@ package com.example.currencyconverter.ui.operations_history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.currencyconverter.data.room.repository.CurrencyRepositoryRealization
+import com.example.currencyconverter.domain.model.CurrencyExchange
+import com.example.currencyconverter.domain.model.DataToUse
+import kotlinx.coroutines.runBlocking
 
-class OperationsHistoryViewModel : ViewModel() {
+class OperationsHistoryViewModel(private val realization: CurrencyRepositoryRealization) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "История операций"
+    val data: MutableLiveData<DataToUse> by lazy {
+        MutableLiveData()
     }
-    val text: LiveData<String> = _text
+    fun getExchangeHistory(): MutableList<CurrencyExchange> {
+        return runBlocking {
+            realization.getExchangeHistory()
+        }
+    }
 }
