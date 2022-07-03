@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
+import com.example.currencyconverter.domain.model.LongClick
 
 @Dao
 interface CurrencyDao {
@@ -34,4 +35,13 @@ interface CurrencyDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addExchange(exchange: CurrencyExchange)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertLongClick(currency: LongClick)
+
+    @Query("UPDATE long_click SET name = :name, value = :value WHERE id = 1")
+    suspend fun updateLongClick(name: String, value: Double)
+
+    @Query("SELECT * FROM long_click")
+    suspend fun getLongClick(): LongClick
 }

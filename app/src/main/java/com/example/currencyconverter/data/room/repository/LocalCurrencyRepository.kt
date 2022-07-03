@@ -2,6 +2,7 @@ package com.example.currencyconverter.data.room.repository
 
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
+import com.example.currencyconverter.domain.model.LongClick
 
 interface LocalCurrencyRepository {
 
@@ -14,4 +15,7 @@ interface LocalCurrencyRepository {
     suspend fun getRUB(): CurrencyList
     suspend fun getExchangeHistory(): MutableList<CurrencyExchange>
     suspend fun addExchange(exchange: CurrencyExchange, onSuccess: () -> Unit)
+    suspend fun updateLongClick(currency: LongClick)
+    suspend fun getLongClick(): LongClick
+    suspend fun insertLongClick(currency: LongClick)
 }

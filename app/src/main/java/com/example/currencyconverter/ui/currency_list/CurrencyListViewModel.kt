@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyconverter.data.retrofit.api.RetrofitInstance.repository
 import com.example.currencyconverter.data.room.repository.CurrencyRepositoryRealization
+import com.example.currencyconverter.domain.mapper.LongClickDtoMapper
 import com.example.currencyconverter.domain.model.CurrencyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,11 +73,7 @@ class CurrencyListViewModel(private var realization: CurrencyRepositoryRealizati
 
     fun longClickExchange(currency: CurrencyList){
         viewModelScope.launch(Dispatchers.IO){
-            val index = getLocalCurrencyList().indexOf(currency)
-            getLocalCurrencyList().removeAt(index)
-            getLocalCurrencyList().add(0, currency)
-            val updated = getLocalCurrencyList()
-            liveData.postValue(updated)
+            realization.updateLongClick(LongClickDtoMapper.fromCurrencyListToLongClick(currency))
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.currencyconverter.data.room.repository.CurrencyRepositoryRealization
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
+import com.example.currencyconverter.domain.model.LongClick
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -40,6 +41,12 @@ class CurrencyExchangeViewModel(private var realization: CurrencyRepositoryReali
             realization.addExchange(exchange){
                 onSuccess()
             }
+        }
+    }
+
+    fun getLongClick(): LongClick{
+        return runBlocking {
+            realization.getLongClick()
         }
     }
 }

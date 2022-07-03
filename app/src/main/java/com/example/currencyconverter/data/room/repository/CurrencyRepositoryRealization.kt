@@ -3,6 +3,7 @@ package com.example.currencyconverter.data.room.repository
 import com.example.currencyconverter.data.room.dao.CurrencyDao
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
+import com.example.currencyconverter.domain.model.LongClick
 
 class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): LocalCurrencyRepository {
 
@@ -44,5 +45,17 @@ class CurrencyRepositoryRealization(private val currencyDao: CurrencyDao): Local
     override suspend fun addExchange(exchange: CurrencyExchange, onSuccess: () -> Unit) {
         currencyDao.addExchange(exchange)
         onSuccess()
+    }
+
+    override suspend fun insertLongClick(currency: LongClick) {
+        return currencyDao.insertLongClick(currency)
+    }
+
+    override suspend fun updateLongClick(currency: LongClick) {
+        currencyDao.updateLongClick(currency.name,  currency.value)
+    }
+
+    override suspend fun getLongClick(): LongClick {
+        return currencyDao.getLongClick()
     }
 }

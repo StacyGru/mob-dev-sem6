@@ -7,8 +7,9 @@ import androidx.room.RoomDatabase
 import com.example.currencyconverter.data.room.dao.CurrencyDao
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
+import com.example.currencyconverter.domain.model.LongClick
 
-@Database(entities = [CurrencyList::class, CurrencyExchange::class], version = 3)
+@Database(entities = [CurrencyList::class, CurrencyExchange::class, LongClick::class], version = 4)
 abstract class CurrencyRoomDatabase: RoomDatabase() {
 
     abstract fun getCurrencyDao(): CurrencyDao

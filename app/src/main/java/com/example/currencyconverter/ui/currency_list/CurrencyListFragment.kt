@@ -33,28 +33,18 @@ class CurrencyListFragment : Fragment() {
         val fragment = CurrencyExchangeFragment()
         viewModel.init()
         adapter = CurrencyAdapter(object: CurrencyActionListener {
-            override fun onCurrencyFavorite(currency: CurrencyList) {
+            override fun currencyFavorite(currency: CurrencyList) {
                 currentCurrency = currency
                 viewModel.updateListFavoriteCurrency(currentCurrency){}
             }
 
-            override fun currencyUp(currencyUp: CurrencyList) {
-                if (currencyType==0) {
-                    viewModel.longClickExchange(currencyUp)
-                    bundle.putSerializable("currency", currencyUp)
-                    currencyType = 1
-                }else {
-                    bundle.putSerializable("currency", currencyUp)
-                    fragment.arguments = bundle
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, fragment)
-                        .commitNow()
-                }
+            override fun currencyLongClick(currency: CurrencyList) {
+                viewModel.longClickExchange(currency)
+                bundle.putSerializable("long_click", "long_click")
+                fragment.arguments = bundle
             }
 
             override fun currencyExchange(currency: CurrencyList) {
-                val fragment = CurrencyExchangeFragment()
-                val bundle = Bundle()
                 bundle.putSerializable("currency", currency)
                 fragment.arguments = bundle
                 parentFragmentManager.beginTransaction()
@@ -82,7 +72,7 @@ class CurrencyListFragment : Fragment() {
 
         binding.refresh.setOnClickListener {
             Log.d("MY_TAG_DB", "button clicked")
-            viewModel.getRetrofitCurrencyList()
+            viewModel.updateListCurrency(currentCurrency){}
         }
 
         viewModel.liveData.observe(viewLifecycleOwner) { list ->

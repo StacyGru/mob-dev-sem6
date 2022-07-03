@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.currencyconverter.R
 import com.example.currencyconverter.data.room.repository.RepositoryInitialization
 import com.example.currencyconverter.databinding.CurrencyExchangeBinding
+import com.example.currencyconverter.domain.mapper.LongClickDtoMapper
 import com.example.currencyconverter.domain.model.CurrencyExchange
 import com.example.currencyconverter.domain.model.CurrencyList
 import com.example.currencyconverter.ui.currency_list.CurrencyListFragment
@@ -59,9 +60,8 @@ class CurrencyExchangeFragment : Fragment() {
                 .commitNow()
         }
 
-        if (arguments?.getSerializable("currencyUp") != null) {   // после выбора двух валют
-            var currentCurrencyUp = arguments?.getSerializable("currencyUp") as CurrencyList
-            firstCurrency = currentCurrencyUp
+        if (arguments?.getString("long_click") != null) {   // после выбора двух валют
+            firstCurrency = LongClickDtoMapper.fromLongClickToCurrencyList(viewModel.getLongClick())
             secondCurrency = currency
 
         }

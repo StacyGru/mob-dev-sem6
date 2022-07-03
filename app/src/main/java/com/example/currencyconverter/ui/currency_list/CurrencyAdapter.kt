@@ -14,9 +14,6 @@ class CurrencyAdapter(
 ) :RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
     var currencyList = emptyList<CurrencyList>()
-//    lateinit var actionListener: CurrencyActionListener
-
-//    class CurrencyViewHolder(view: View):RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -66,14 +63,11 @@ class CurrencyAdapter(
             }
 
             toFavorite.setOnClickListener {
-                actionListener.onCurrencyFavorite(item.copy(is_favorite = !item.is_favorite))
+                actionListener.currencyFavorite(item.copy(is_favorite = !item.is_favorite))
             }
 
             root.setOnLongClickListener {
-                actionListener.currencyUp(item)
-                root.setOnClickListener {
-                    actionListener.currencyUp(item)
-                }
+                actionListener.currencyLongClick(item)
                 true
             }
         }
