@@ -72,7 +72,8 @@ class CurrencyListFragment : Fragment() {
 
         binding.refresh.setOnClickListener {
             Log.d("MY_TAG_DB", "button clicked")
-            viewModel.updateListCurrency(currentCurrency){}
+            viewModel.updateListCurrency(currentCurrency){}   // если БД уже есть
+//            viewModel.insertCurrencyList(currentCurrency){}   // если БД нет
         }
 
         viewModel.liveData.observe(viewLifecycleOwner) { list ->

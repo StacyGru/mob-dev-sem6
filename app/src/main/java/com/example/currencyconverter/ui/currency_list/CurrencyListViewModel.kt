@@ -73,7 +73,8 @@ class CurrencyListViewModel(private var realization: CurrencyRepositoryRealizati
 
     fun longClickExchange(currency: CurrencyList){
         viewModelScope.launch(Dispatchers.IO){
-            realization.updateLongClick(LongClickDtoMapper.fromCurrencyListToLongClick(currency))
+            realization.updateLongClick(LongClickDtoMapper.fromCurrencyListToLongClick(currency))   // если в БД уже есть запись
+//            realization.insertLongClick(LongClickDtoMapper.fromCurrencyListToLongClick(currency))   // если записи нет
         }
     }
 }

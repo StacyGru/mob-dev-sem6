@@ -111,7 +111,7 @@ class CurrencyExchangeFragment : Fragment() {
                 firstCurrencyAmount,
                 secondCurrency.name,
                 secondCurrencyAmount,
-                getCurrentDate()
+                "25.06.2022, 15:03"
             )
 
             viewModel.addExchange(exchangeItem){}
@@ -143,8 +143,13 @@ class CurrencyExchangeFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDate(): String {
+        val sdf = SimpleDateFormat("dd.MM.yyyy, HH:mm")
         val c = Calendar.getInstance()
-        val df = SimpleDateFormat("dd-MM-yyyy")
-        return df.format(c.time)
+
+        c.add(
+            Calendar.HOUR,
+            3
+        )
+        return sdf.format(c.time)
     }
 }

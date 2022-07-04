@@ -1,17 +1,25 @@
 package com.example.currencyconverter
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.currencyconverter.data.room.repository.RepositoryInitialization
 import com.example.currencyconverter.databinding.ActivityMainBinding
+import com.example.currencyconverter.ui.operations_history.OperationsHistoryViewModel
+import com.example.currencyconverter.ui.operations_history.OperationsHistoryViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    val viewModel: OperationsHistoryViewModel by viewModels {
+        OperationsHistoryViewModelFactory(RepositoryInitialization.getRepository(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

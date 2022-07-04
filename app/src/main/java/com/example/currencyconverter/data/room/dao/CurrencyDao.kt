@@ -44,4 +44,7 @@ interface CurrencyDao {
 
     @Query("SELECT * FROM long_click")
     suspend fun getLongClick(): LongClick
+
+//    @Query("DELETE FROM exchanges WHERE date = '03-07-2022'")
+//    suspend fun clearHistory(): CurrencyExchange
 }
