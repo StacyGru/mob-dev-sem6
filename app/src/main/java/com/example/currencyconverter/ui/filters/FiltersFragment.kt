@@ -36,12 +36,10 @@ class FiltersFragment : Fragment() {
         return binding.root
     }
 
-//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.allTime.setOnClickListener {
             viewModel.filter.postValue("За всё время")
-//            viewModel.getExchangeHistory()
             fragment.arguments = bundle
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment_activity_main, fragment)
@@ -49,19 +47,18 @@ class FiltersFragment : Fragment() {
                 .commitNow()
         }
 
-        binding.lastWeek.setOnClickListener {
-            viewModel.filter.postValue("За неделю")
+        binding.today.setOnClickListener {
+            viewModel.filter.postValue("За сегодня")
             fragment.arguments = bundle
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment_activity_main, fragment)
                 .replace(R.id.nav_host_fragment_activity_main, fragment)
                 .commitNow()
         }
-        binding.lastMonth.setOnClickListener {
+        binding.currentMonth.setOnClickListener {
 
             fragment.arguments = bundle
-            viewModel.filter.postValue("За месяц")
-//            viewModel.getLastMonthExchangeHistory()
+            viewModel.filter.postValue("За этот месяц")
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment_activity_main, fragment)
                 .replace(R.id.nav_host_fragment_activity_main, fragment)

@@ -111,7 +111,7 @@ class CurrencyExchangeFragment : Fragment() {
                 firstCurrencyAmount,
                 secondCurrency.name,
                 secondCurrencyAmount,
-                "13.06.2022, 05:38"
+                getCurrentDate()
             )
 
             viewModel.addExchange(exchangeItem){}

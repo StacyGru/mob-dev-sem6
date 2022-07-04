@@ -38,7 +38,7 @@ class OperationsHistoryViewModel(private val realization: CurrencyRepositoryReal
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getLastMonthExchangeHistory(): List<CurrencyExchange> {
+    fun getCurrentMonthExchangeHistory(): List<CurrencyExchange> {
         return runBlocking {
             realization.getExchangeHistory().filter {
                 checkMonth(it)
@@ -55,6 +55,31 @@ class OperationsHistoryViewModel(private val realization: CurrencyRepositoryReal
                 DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm", Locale.ENGLISH)
             )
             date.month == LocalDate.now().month
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("MY_TAG_ERROR", e.localizedMessage)
+            false
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCurrentDayExchangeHistory(): List<CurrencyExchange> {
+        return runBlocking {
+            realization.getExchangeHistory().filter {
+                checkDay(it)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SimpleDateFormat")
+    private fun checkDay(currencyExchange: CurrencyExchange): Boolean {
+        return try {
+            val date = LocalDateTime.parse(
+                currencyExchange.date,
+                DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm", Locale.ENGLISH)
+            )
+            date.dayOfMonth == LocalDate.now().dayOfMonth
         } catch (e: Exception) {
             e.printStackTrace()
             Log.d("MY_TAG_ERROR", e.localizedMessage)
